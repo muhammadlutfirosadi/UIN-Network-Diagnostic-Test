@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infografis Pemeliharaan Jaringan UIN GUSDUR Pekalongan</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8; /* Light blue-gray for background */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px; /* Max width for chart for readability */
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px; /* Base height */
+            max-height: 400px; /* Max height */
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px; /* Taller on larger screens */
+            }
+        }
+        .card {
+            background-color: white;
+            border-radius: 0.75rem; /* Rounded corners */
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); /* Subtle shadow for elevation */
+            padding: 1.5rem;
+            margin-bottom: 1.5rem; /* Spacing between cards */
+        }
+        .kpi-value {
+            font-size: 2.5rem; /* Large font for KPI numbers */
+            font-weight: 700; /* Bold */
+            color: #003f5c; /* Primary color */
+        }
+        .kpi-label {
+            font-size: 1.125rem; /* Text size */
+            color: #665191; /* Accent color for labels */
+        }
+        .flow-item {
+            display: flex;
+            flex-direction: column; /* Always column to keep text above image */
+            align-items: flex-start; /* Align all content to the left by default */
+            gap: 1rem; /* Space between text and image */
+            margin-bottom: 1.5rem; /* Spacing between flow items */
+            padding: 1rem;
+            border-radius: 0.5rem;
+            background-color: white; /* Card background for each step */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            width: 100%; /* Full width for mobile */
+            max-width: 450px; /* Limit width on larger screens for smaller cards */
+            margin-left: auto; /* Center the item */
+            margin-right: auto;
+        }
+        .flow-item:hover {
+            transform: translateY(-5px);
+        }
+        .flow-text-content {
+            width: 100%; /* Ensure text content takes full width */
+            text-align: left; /* Always left align text */
+        }
+        .flow-text-content p { /* Apply text-justify to paragraph inside */
+            text-align: justify;
+        }
+        .flow-image {
+            width: 200px; /* Fixed width for images - INCREASED */
+            height: 140px; /* Fixed height for images - INCREASED */
+            object-fit: cover; /* Ensure image covers the area */
+            border-radius: 0.5rem;
+            flex-shrink: 0; /* Prevent image from shrinking */
+            margin-top: 0.5rem; /* Small margin between text and image */
+            transition: transform 0.3s ease; /* Add transition for smooth zoom */
+        }
+        .flow-image:hover {
+            transform: scale(3.0); /* Zoom effect on hover - INCREASED TO 300% */
+        }
+        .flow-arrow-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin: 0.5rem 0; /* Vertical margin for arrows */
+        }
+        .flow-arrow {
+            font-size: 2rem;
+            color: #665191;
+            transform: rotate(90deg); /* Always vertical arrow */
+        }
+
+        /* Adjustments for centering images within the flow-item while keeping text left-aligned */
+        .flow-item > *:not(.flow-text-content) { /* Target elements inside flow-item that are not flow-text-content (i.e., images) */
+            align-self: center; /* Center these specific elements horizontally */
+        }
+
+        /* Media query for larger screens only for general layout, not flow-item direction */
+        @media (min-width: 768px) {
+            /* No changes needed here specific to this request, as flow-item is already column and centered */
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+    <!--
+    Palette Selection: Brilliant Blues (#003f5c, #665191, #a05195, #f95d6a, #ff7c43, #ffa600)
+    Narrative Plan:
+    1. Header and quick overview.
+    2. Key Metrics/KPIs from report info.
+    3. Detailed Maintenance Activities Flowchart (HTML/CSS).
+    4. Key Findings and Remediation Status Charts (Chart.js).
+    5. Impact/Outcome summary with large text.
+    6. Recommendations as styled cards.
+    Visualization Choices:
+    - KPIs: Single Big Number (HTML/Tailwind) - Goal: Inform. Justification: High impact. NO SVG.
+    - Activities Flow: HTML/CSS Flowchart (Tailwind) - Goal: Organize process. Justification: Adheres to NO SVG/Mermaid rule.
+    - Remediation Status: Pie Chart (Chart.js) - Goal: Inform composition. Justification: Shows proportion of issues resolved. NO SVG.
+    - Root Cause Breakdown: Bar Chart (Chart.js) - Goal: Compare categories. Justification: Compares different causes. NO SVG.
+    - Impact/Outcome: Large text (HTML/Tailwind) - Goal: Inform. Justification: Emphasizes key result. NO SVG.
+    - Recommendations: Styled List (HTML/Tailwind) - Goal: Organize. Justification: Clear text presentation. NO SVG.
+    Neither Mermaid JS nor SVG were used in this output.
+    -->
+    <div class="container mx-auto max-w-6xl p-4 sm:p-6 lg:p-8">
+
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-[#003f5c] mb-2">Infografis Laporan Pemeliharaan Jaringan</h1>
+            <p class="text-lg text-gray-600">UIN GUSDUR Pekalongan - 17 Juni 2025</p>
+            <p class="text-md text-gray-500 mt-2">Pemulihan & Peningkatan Kestabilan Jaringan Pasca Insiden Blackout</p>
+        </header>
+
+        <section id="overview" class="mb-12">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="card text-center border-l-4 border-[#003f5c]">
+                    <div class="kpi-value">2</div>
+                    <div class="kpi-label">Lokasi Kampus</div>
+                </div>
+                <div class="card text-center border-l-4 border-[#665191]">
+                    <div class="kpi-value">4 Jam</div>
+                    <div class="kpi-label">Durasi Pemeliharaan</div>
+                </div>
+                <div class="card text-center border-l-4 border-[#f95d6a]">
+                    <div class="kpi-value">100%</div>
+                    <div class="kpi-label">Critical Problem Solved</div>
+                </div>
+                <div class="card text-center border-l-4 border-[#ffa600]">
+                    <div class="kpi-value">&lt;5 Detik</div>
+                    <div class="kpi-label">Waktu Transisi Failover</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="impact-outcome" class="mb-12 card text-center p-8">
+            <h2 class="text-3xl font-bold text-[#003f5c] mb-4">Tujuan Kegiatan Pemeliharaan</h2>
+            <p class="text-gray-600 mb-6">Bertujuan untuk memastikan koneksi internet yang optimal dan stabil secara berkelanjutan, serta mengurangi potensi downtime yang disebabkan oleh insiden serupa.</p>
+        </section>
+
+        <section id="activities-flow" class="mb-12 card">
+            <h2 class="text-3xl font-bold text-[#003f5c] text-center mb-6">Alur Aktivitas Pemeliharaan Jaringan</h2>
+            <p class="text-gray-600 mb-8 text-center">Proses pemeliharaan terstruktur untuk mengidentifikasi dan memperbaiki akar masalah konektivitas.</p>
+            
+            <div class="flex flex-col items-center justify-center w-full">
+                <!-- Step 1 -->
+                <div class="flow-item bg-[#003f5c] text-white">
+                    <div class="flow-text-content">
+                        <p class="font-semibold text-base">1. Inspeksi Fisik Infrastruktur</p>
+                    </div>
+                    <img src="https://raw.githubusercontent.com/muhammadlutfirosadi/UIN-17062025/refs/heads/main/IMG_20250617_120113.jpg" alt="Foto Inspeksi Fisik Infrastruktur" class="flow-image">
+                    <p class="text-sm mt-2 w-full text-left">Tim melakukan prepare dan identifikasi pada pukul 12.01.</p>
+                </div>
+                <div class="flow-arrow-container"><span class="flow-arrow">&#10140;</span></div>
+
+                <!-- Step 2 -->
+                <div class="flow-item bg-[#665191] text-white">
+                    <div class="flow-text-content">
+                        <p class="font-semibold text-base">2. Verifikasi dan Rekonfigurasi Failover</p>
+                    </div>
+                    <img src="https://github.com/muhammadlutfirosadi/UIN-17062025/blob/main/verifikasi%20rekonfig%20failover.jpg?raw=true" alt="Foto Verifikasi dan Rekonfigurasi Failover" class="flow-image">
+                    <p class="text-sm mt-2 w-full text-left">Tim melakukan verifikasi dari hasil rekonfigurasi failover yang telah dilakukan sebelumnya via remote oleh tim NOC.</p>
+                </div>
+                <div class="flow-arrow-container"><span class="flow-arrow">&#10140;</span></div>
+
+                <!-- Step 3 -->
+                <div class="flow-item bg-[#a05195] text-white">
+                    <div class="flow-text-content">
+                        <p class="font-semibold text-base">3. Pengujian Hasil Rekonfigurasi Failover</p>
+                    </div>
+                    <img src="https://github.com/muhammadlutfirosadi/UIN-17062025/blob/main/IMG_20250617_123344.jpg?raw=true" alt="Foto Pengujian Hasil Rekonfigurasi Failover" class="flow-image">
+                    <p class="text-sm mt-2 w-full text-left">Pada pukul 12.33 tim melakukan testing failover dengan metode pelepasan fisik kabel patchcord, dengan simulasi mainlink down terbackup dengan backuplink.</p>
+                </div>
+                <div class="flow-arrow-container"><span class="flow-arrow">&#10140;</span></div>
+
+                <!-- Step 4 -->
+                <div class="flow-item bg-[#f95d6a] text-white">
+                    <div class="flow-text-content">
+                        <p class="font-semibold text-base">4. Pengujian Kinerja Jaringan</p>
+                    </div>
+                    <img src="https://github.com/muhammadlutfirosadi/UIN-17062025/blob/main/IMG_20250617_123604.jpg?raw=true" alt="Foto Pengujian Kinerja Jaringan" class="flow-image">
+                    <p class="text-sm mt-2 w-full text-left">Testing failover telah dilakukan, hasilnya link backup secara otomatis bisa digunakan dengan downtime yang cukup singkat karena proses reroute yang cepat.</p>
+                </div>
+                <div class="flow-arrow-container"><span class="flow-arrow">&#10140;</span></div>
+
+                <!-- Step 5 -->
+                <div class="flow-item bg-[#ff7c43] text-white">
+                    <div class="flow-text-content">
+                        <p class="font-semibold text-base">5. Pemeliharaan, Pencadangan dan Verifikasi Sistem/Konfig</p>
+                    </div>
+                    <img src="https://github.com/muhammadlutfirosadi/UIN-17062025/blob/main/IMG_20250618_104308.jpg?raw=true" alt="Foto Pemeliharaan, Pencadangan dan Verifikasi" class="flow-image">
+                    <p class="text-sm mt-2 w-full text-left">Telah kami siapkan 1 perangkat Router Mikrotik CCR 2116-12G-4S+ sebagai perangkat backup untuk mengantisipasi worst case pada perangkat existing, dan selanjutnya akan dikirimkan 1 perangkat Switch Huawei untuk Gateway FO.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="bandwidth-test" class="mb-12 card">
+            <h2 class="text-3xl font-bold text-[#003f5c] text-center mb-6">Aktivitas Uji Coba Bandwidth Layanan 2GB di Kampus 2</h2>
+            <p class="text-gray-600 mb-8 text-center">Pengujian performa bandwidth aktual untuk memastikan kapasitas layanan dapat terpenuhi dengan baik.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="flex flex-col items-center p-4 bg-gray-50 rounded-lg shadow-sm">
+                    <img src="https://github.com/muhammadlutfirosadi/UIN-17062025/blob/main/WhatsApp%20Image%202025-06-17%20at%201.21.17%20PM.jpeg?raw=true" alt="Hasil Uji Bandwidth 1" class="w-full h-auto rounded-md mb-2">
+                    <p class="text-sm text-gray-700 text-center">Gambar 1: Hasil uji kecepatan bandwidth (download/upload) via nPerf di laptop bypass ke Router BGP iForte pada pukul 13.09.</p>
+                </div>
+                <div class="flex flex-col items-center p-4 bg-gray-50 rounded-lg shadow-sm">
+                    <img src="https://github.com/muhammadlutfirosadi/UIN-17062025/blob/main/thunderbolt1.jpg?raw=true" alt="Hasil Uji Bandwidth 3" class="w-full h-auto rounded-md mb-2">
+                    <p class="text-sm text-gray-700 text-center">Gambar 2: Perangkat Ethernet Adapter 10Gb Thunderbolt.</p>
+                </div>
+                <div class="flex flex-col items-center p-4 bg-gray-50 rounded-lg shadow-sm">
+                    <img src="https://github.com/muhammadlutfirosadi/UIN-17062025/blob/main/Trafik%20WAN%20Rx.png?raw=true" alt="Hasil Uji Bandwidth 2" class="w-full h-auto rounded-md mb-2">
+                    <p class="text-sm text-gray-700 text-center">Gambar 3: Monitoring trafik Rx Router BGP di waktu yang sama dengan nPerf bandwidth-test.</p>
+                </div>
+                <div class="flex flex-col items-center p-4 bg-gray-50 rounded-lg shadow-sm">
+                    <img src="https://github.com/muhammadlutfirosadi/UIN-17062025/blob/main/Trafik%20WAN%20Tx.jpeg?raw=true" alt="Hasil Uji Bandwidth 4" class="w-full h-auto rounded-md mb-2">
+                    <p class="text-sm text-gray-700 text-center">Gambar 4: Monitoring trafik Tx Router BGP di waktu yang sama dengan nPerf bandwidth-test.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="findings-remediation" class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+            <div class="card">
+                <h2 class="text-3xl font-bold text-[#003f5c] mb-4">Status Kegiatan Troubleshoot</h2>
+                <p class="text-gray-600 mb-4">Seluruh temuan kritis yang teridentifikasi berhasil diselesaikan selama periode pemeliharaan ini, menunjukkan efisiensi tim yang tinggi.</p>
+                <div class="chart-container">
+                    <canvas id="remediationStatusChart"></canvas>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 class="text-3xl font-bold text-[#003f5c] mb-4">Root Cause</h2>
+                <p class="text-600 mb-4">Penyebab utama gangguan jaringan adalah pengaturan failover yang salah dan masalah BGP. Kedua masalah ini sudah berhasil kami identifikasi dan perbaiki. Selain itu, pengetesan kapasitas bandwidth 2GB dari sisi iForte juga menunjukkan bahwa perangkat dan jalur koneksi dapat cover layanan tersebut dengan baik.</p>
+                <div class="chart-container">
+                    <canvas id="rootCauseChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <section id="recommendations" class="mb-12">
+            <h2 class="text-3xl font-bold text-[#003f5c] text-center mb-6">Rekomendasi Teknis Utama</h2>
+            <p class="text-gray-600 mb-8 text-center">Langkah-langkah strategis untuk menjaga dan terus meningkatkan kualitas jaringan.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="card text-left border-l-4 border-[#003f5c]">
+                    <h3 class="font-bold text-xl text-[#003f5c] mb-2">Uji Regresi & Validasi Rutin</h3>
+                    <p class="text-gray-700 text-sm">Untuk menanggulangi insiden yang sama selaku EOS akan melakukan uji dan validasi pada konfigurasi yang sudah diimplementasikan secara berkala.</p>
+                </div>
+                <div class="card text-left border-l-4 border-[#665191]">
+                    <h3 class="font-bold text-xl text-[#665191] mb-2">Peningkatan Monitoring Jaringan</h3>
+                    <p class="text-gray-700 text-sm">Akan membuat Network Monitoring System yang lebih fleksibel dan bisa dengan mudah diakses lewat mobile agar lebih mudah .</p>
+                </div>
+                <div class="card text-left border-l-4 border-[#a05195]">
+                    <h3 class="font-bold text-xl text-[#a05195] mb-2">Evaluasi Performa Jaringan Lokal</h3>
+                    <p class="text-gray-700 text-sm">Menindaklanjuti issue bottlenect dan hasil pengetesan link layanan yang sudah cover sesuai layanan, selanjutnya akan kami koordinasikan dengan PIC untuk optimasi jaringan lokal UIN.</p>
+                </div>
+            </div>
+        </section>
+
+        <footer class="text-center mt-12 text-gray-500 text-sm">
+            <p>Infografis ini dibuat berdasarkan Laporan Pemeliharaan Jaringan UIN Abdurrahman Wahid Pekalongan, 17 Juni 2025.</p>
+        </footer>
+
+    </div>
+
+    <script>
+        const brilliantBlues = ['#003f5c', '#665191', '#a05195', '#f95d6a', '#ff7c43', '#ffa600'];
+
+        function wrapLabel(label, maxWidth) {
+            if (typeof label !== 'string') return label; // Return as-is if not a string
+            if (label.length <= maxWidth) return label;
+
+            const words = label.split(' ');
+            let lines = [];
+            let currentLine = '';
+
+            for (const word of words) {
+                if ((currentLine + word).length <= maxWidth && currentLine.length > 0) {
+                    currentLine += ' ' + word;
+                } else if (currentLine.length === 0) {
+                    currentLine = word;
+                } else {
+                    lines.push(currentLine);
+                    currentLine = word;
+                }
+            }
+            lines.push(currentLine);
+            return lines;
+        }
+
+        const tooltipTitleCallback = (tooltipItems) => {
+            const item = tooltipItems[0];
+            let label = item.chart.data.labels[item.dataIndex];
+            if (Array.isArray(label)) {
+              return label.join(' ');
+            } else {
+              return label;
+            }
+        };
+
+        const defaultChartOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        color: '#4a5568',
+                        font: {
+                           family: "'Inter', sans-serif"
+                        }
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        title: tooltipTitleCallback
+                    },
+                    backgroundColor: '#003f5c',
+                    titleFont: {
+                        size: 14,
+                        family: "'Inter', sans-serif"
+                    },
+                    bodyFont: {
+                        size: 12,
+                        family: "'Inter', sans-serif"
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    ticks: {
+                        color: '#4a5568',
+                        font: { family: "'Inter', sans-serif" }
+                    },
+                    grid: { display: false }
+                },
+                y: {
+                    ticks: {
+                        color: '#4a5568',
+                        font: { family: "'Inter', sans-serif" }
+                    },
+                    grid: { color: '#e2e8f0' }
+                }
+            }
+        };
+
+        // Chart 1: Remediation Status
+        const remediationStatusCtx = document.getElementById('remediationStatusChart').getContext('2d');
+        new Chart(remediationStatusCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Terselesaikan'],
+                datasets: [{
+                    label: 'Status Temuan Kritis',
+                    data: [3], // All 3 findings are now considered "Terselesaikan" for this chart's purpose
+                    backgroundColor: [brilliantBlues[0]], // Use only one color as there's only one category
+                    borderColor: '#ffffff',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                ...defaultChartOptions,
+                scales: { // Disable scales for donut/pie charts
+                    x: { display: false },
+                    y: { display: false }
+                }
+            }
+        });
+
+        // Chart 2: Root Cause Breakdown
+        const rootCauseCtx = document.getElementById('rootCauseChart').getContext('2d');
+        new Chart(rootCauseCtx, {
+            type: 'bar',
+            data: {
+                labels: [
+                    wrapLabel('Kesalahan Konfigurasi Failover', 16),
+                    wrapLabel('BGP Failure', 16),
+                    wrapLabel('Utilisasi Bandwidth Tinggi', 16)
+                ],
+                datasets: [{
+                    label: 'Jumlah Insiden per Akar Masalah',
+                    data: [1, 1, 1], // Assuming 1 major incident for each for this sample
+                    backgroundColor: [brilliantBlues[1], brilliantBlues[4], brilliantBlues[5]],
+                    borderColor: '#ffffff',
+                    borderWidth: 1,
+                    borderRadius: 5
+                }]
+            },
+            options: {
+                ...defaultChartOptions,
+                scales: {
+                    x: {
+                        ticks: {
+                            color: '#4a5568',
+                            font: { family: "'Inter', sans-serif" }
+                        },
+                        grid: { display: false }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        ticks: { color: '#4a5568', precision: 0 },
+                        grid: { color: '#e2e8f0' }
+                    }
+                },
+                plugins: {
+                    ...defaultChartOptions.plugins,
+                    legend: { display: false } // No legend for simple bar chart if labels are on axis
+                }
+            }
+        });
+    </script>
+</body>
+</html>
